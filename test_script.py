@@ -37,15 +37,22 @@ USER_LIST = [{ 'username': 'jonh Doe 1', 'birthday': '02/12/1985', 'role': 'admi
 
 # Unit testing
 class TestCompanyCode(unittest.TestCase):
-    """Class that will test all the math related functions."""
+    """Class that will test all company code."""
 
     def test_connect_to_db(self):
+        """
+        Function that tests for correct error raising in 'connect_to_db' function.
+        """
         with self.assertRaises(TestDbError) as context:
             connect_to_db("test")
         with self.assertRaises(ConnectionDatabaseError) as context:
             connect_to_db("test/not_test")
 
     def test_get_users_list_from_db(self):
+        """
+        Test function that doesn't tries to mock the get_users_list_from_db function, checks if it returns a list of
+        of 20+ users, with a username, birthday and role is the correct format.
+        """
         self.mock_database = Mock
         self.mock_database.return_value = USER_LIST
         get_users_list_from_db = self.mock_database.return_value
@@ -65,7 +72,8 @@ class TestCompanyCode(unittest.TestCase):
 
     def test_add(self, mini=1, maxi=201):
         """
-        Test function that will go through every triple combination of every number from 'mini' to 'maxi'.
+        Test function that will go through every triple combination of every number from 'mini' to 'maxi' and
+        sees if the 'add' function will return the same as builtin 'sum' function.
         """
         for i in range(mini, maxi):
             for j in range(mini, maxi):
@@ -74,4 +82,3 @@ class TestCompanyCode(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    
